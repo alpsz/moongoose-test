@@ -7,7 +7,7 @@ const User = require('./models/user');
 const Load = require('./models/load');
 
 
-const DATABASE_STRING = "mongodb+srv://windson:7WUUxJojmKHEKu5d@cluster0.xlwja.mongodb.net/windsonTrack";
+const DATABASE_STRING = "";
 mongoose.connect(DATABASE_STRING, {useNewUrlParser : true, useFindAndModify : true, useCreateIndex : true, useUnifiedTopology : true});
 
 const db = mongoose.connection;
