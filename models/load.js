@@ -30,7 +30,8 @@ const loadSchema = new Schema({
         required: true
     },
     company_id: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'Company',
         required: true
     },
     company_name: {
