@@ -5,9 +5,10 @@ const port = 8000;
 const faker = require('faker');
 const User = require('./models/user');
 const Load = require('./models/load');
+const Driver = require('./models/driver');
 
 
-const DATABASE_STRING = "";
+const DATABASE_STRING = "mongodb+srv://windson:7WUUxJojmKHEKu5d@cluster0.xlwja.mongodb.net/windsonTrack";
 mongoose.connect(DATABASE_STRING, {useNewUrlParser : true, useFindAndModify : true, useCreateIndex : true, useUnifiedTopology : true});
 
 const db = mongoose.connection;
@@ -16,8 +17,10 @@ db.on('error', console.error.bind(console, "Error connecting to the database"));
 
 db.once('open', async function () {
     console.log("connected to the database");
+    const driverList = await Driver.find({}, '_id');
+    
     let loadArr = [];
-    for (let i = 0; i < 10000; i++) {
+    for (let i = 0; i < 1; i++) {
         let arr = [];
         for(let j = 0; j < 80; j++) {
             let loc_arr = {};
@@ -33,7 +36,7 @@ db.once('open', async function () {
         load.invoice = i;
         load.company_id = Math.floor(Math.random() * 1000);
         load.company_name = faker.name.findName();
-        load.driver_id = Math.floor(Math.random() * 5000);
+        load.driver_id = driverList[Math.floor(Math.random() * 5000)];
         load.total_miles = Math.floor(Math.random() * 5000);
         load.total_time = Math.floor(Math.random() * 100000);
         load.active_time = Math.floor(Math.random() * 50000);
@@ -51,6 +54,23 @@ db.once('open', async function () {
         load.location = arr;
         //load.save();
     }
+
+    // for (let i = 0; i < 1000; i++) {
+    //     const driver = new Driver();
+    //     driver.name = faker.name.findName();
+    //     driver.phone = faker.phone.phoneNumber();
+    //     driver.license_number = faker.random.alphaNumeric();
+    //     driver.alt_number = faker.phone.phoneNumber();
+    //     driver.dob = faker.date.past();
+    //     driver.dl_state = faker.address.state();
+    //     driver.total_load = Math.floor(Math.random() * 10000);
+    //     driver.total_miles = Math.floor(Math.random() * 100000);
+    //     driver.total_revenue = Math.floor(Math.random() * 100000);
+    //     driver.save();
+    // }
+
+    
+    
 
 });
 

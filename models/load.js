@@ -38,7 +38,8 @@ const loadSchema = new Schema({
         required: true
     },
     driver_id: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'Driver',
         required: true
     },
     total_miles: {
